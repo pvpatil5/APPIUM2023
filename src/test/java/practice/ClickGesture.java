@@ -2,10 +2,14 @@ package practice;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Set;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.testng.annotations.Test;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -15,8 +19,8 @@ import io.appium.java_client.remote.MobileCapabilityType;
 
 public class ClickGesture 
 {
-
-	public void click() throws MalformedURLException {
+	@Test
+	public void click() throws MalformedURLException, InterruptedException {
 		DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 
 		desiredCapabilities.setCapability("automationName", "uiautomator2");
@@ -33,17 +37,50 @@ public class ClickGesture
 		AndroidDriver driver = new AndroidDriver(url, desiredCapabilities);
 
 		WebElement views = driver.findElement(AppiumBy.accessibilityId("Views"));
-		
-		// Java
-		driver.executeScript("mobile: clickGesture", ImmutableMap.of(
-				"elementId", ((RemoteWebElement) views).getId()
-				));
+
+		views.click();
+		String av="WebView";
+		String an="text";
+
+		driver.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView("+an+"(\""+av+"\"))"));
+
+		driver.findElement(AppiumBy.accessibilityId("WebView")).click();
+
+		Thread.sleep(3000);
+		Set<String> handles=driver.getContextHandles();
+
+		for(String handle:handles)
+		{
+			System.out.println(handle);
+		}
+
+		driver.context("WEBVIEW_io.appium.android.apis");
+
+		String msg=driver.findElement(By.xpath("//h1")).getText();
+
+
+		System.out.println(msg);
+
+
+
+
 
 		// Java
-		driver.executeScript("mobile: clickGesture", ImmutableMap.of(
-			"x",200,
-			"y",300
-				));
+		//		driver.executeScript("mobile: clickGesture", ImmutableMap.of(
+		//				"elementId", ((RemoteWebElement) views).getId()
+		//				));
+		//
+		//		// Java
+		//		driver.executeScript("mobile: clickGesture", ImmutableMap.of(
+		//			"x",200,
+		//			"y",300
+		//				));
+		//		
+		//		ScreenOrientation sc= driver.getOrientation();
+		//		System.out.println(sc);
+		//		
+		//		driver.rotate(ScreenOrientation.PORTRAIT);
+		//		
 
 
 

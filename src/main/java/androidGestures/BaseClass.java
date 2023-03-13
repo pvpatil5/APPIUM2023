@@ -6,12 +6,13 @@ import java.net.URL;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.BeforeSuite;
 
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 
 public class BaseClass 
 {
-	public AndroidDriver driver;
+	public AppiumDriver driver;
 
 	
 	@BeforeSuite

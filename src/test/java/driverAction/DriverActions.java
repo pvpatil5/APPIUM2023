@@ -1,11 +1,9 @@
 package driverAction;
 
-import java.time.Duration;
-
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
-import io.appium.java_client.*;
 import androidGestures.BaseClass;
+import io.appium.java_client.AppiumBy;
 
 
 
@@ -20,6 +18,7 @@ public class DriverActions extends BaseClass
 		Thread.sleep(3000);
 		WebElement views = driver.findElement(AppiumBy.accessibilityId("Views"));
 		views.click();
+
 		//driver.terminateApp("io.appium.android.apis");
 
 		//to check app is installed or not
@@ -29,18 +28,18 @@ public class DriverActions extends BaseClass
 		//driver.installApp("/Users/johndoe/path/to/app.apk" );
 
 		//run app in back ground
-		driver.runAppInBackground(Duration.ofSeconds(10));
-		System.out.println(driver.queryAppState("Api demos="+"io.appium.android.apis"));
+		//		driver.runAppInBackground(Duration.ofSeconds(10));
+		//		System.out.println(driver.queryAppState("Api demos="+"io.appium.android.apis"));
+		//
+		//		// actiovate other app
+		//		driver.activateApp("com.androidsample.generalstore");
+		//		System.out.println(driver.queryAppState("Api demos="+"io.appium.android.apis"));
+		//		Thread.sleep(3000);
+		//		driver.activateApp("Api demos="+"io.appium.android.apis");
+		//
+		//		System.out.println(driver.queryAppState("general store="+"com.androidsample.generalstore"));
+		//	
 
-		// actiovate other app
-		driver.activateApp("com.androidsample.generalstore");
-		System.out.println(driver.queryAppState("Api demos="+"io.appium.android.apis"));
-		Thread.sleep(3000);
-		driver.activateApp("Api demos="+"io.appium.android.apis");
-
-		System.out.println(driver.queryAppState("general store="+"com.androidsample.generalstore"));
-	
-			
 	}
 
 }
