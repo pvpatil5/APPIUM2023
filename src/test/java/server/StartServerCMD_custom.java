@@ -1,43 +1,50 @@
-package androidGestures;
+package server;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.InteractsWithApps;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
+import io.appium.java_client.service.local.AppiumServiceBuilder;
+import io.appium.java_client.service.local.flags.GeneralServerFlag;
 
-public class BaseClass 
-{
-	public AppiumDriver driver;
-	private AppiumDriverLocalService server;
+public class StartServerCMD_custom {
 
-	@BeforeSuite
-	public void launchserver() throws MalformedURLException 
+	AppiumDriverLocalService server;
+
+
+	public AppiumDriverLocalService getAppiumServer(int port) {
+		return AppiumDriverLocalService.buildService(new AppiumServiceBuilder()
+				.usingPort(port)
+			
+				.withLogFile(new File("../APPIUM_NEW/ServerLogs.log"))
+				.withArgument(GeneralServerFlag.SESSION_OVERRIDE) 
+				);
+	}
+
+
+
+	@Parameters("port")
+	@BeforeMethod
+	public void startserver(int port) 
 	{
-		server=DriverMethods.getAppiumServer();
+		server=getAppiumServer(port);
 		server.start();
+		server.clearOutPutStreams(); // it will not show server logs in the console
+
 	}
 
-	@AfterSuite
-	public void stopserver() {
-		server.stop();
-	}
 
-	//@Parameters({"deviname","udid"})
-	@BeforeClass
-	public void launchApp() throws MalformedURLException {
+	@Test
+	public void click() throws MalformedURLException, InterruptedException {
 		DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 
 		desiredCapabilities.setCapability("automationName", "uiautomator2");
@@ -49,28 +56,18 @@ public class BaseClass
 		desiredCapabilities.setCapability("appActivity", ".ApiDemos");
 		//desiredCapabilities.setCapability(MobileCapabilityType.APP, "D:\\APPIUM_Stuff\\Appium_Docs\\ApiDemos-debug.apk");
 
+		URL url = new URL("http://localhost:4723");
 
-		URL url = new URL("http://localhost:4723/wd/hub");
+				AndroidDriver driver = new AndroidDriver(url, desiredCapabilities);
 
-		driver = new AndroidDriver(url, desiredCapabilities);
-
-	}
-	@BeforeMethod
-	public void logintoApp() 
-	{
 
 	}
 
 	@AfterMethod
-	public void logout() 
+	public void stopServer()
 	{
-
+		server.stop();
 	}
 
-	@AfterClass
-	public void terminateApp1()
-	{
-		((InteractsWithApps) driver).terminateApp("io.appium.android.apis");
-	}
 
 }

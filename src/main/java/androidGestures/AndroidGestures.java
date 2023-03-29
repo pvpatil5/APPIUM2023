@@ -7,6 +7,11 @@ import io.appium.java_client.android.AndroidDriver;
 
 public class AndroidGestures {
 
+	/**
+	 * this method perform click operation
+	 * @param driver
+	 * @param element
+	 */
 	public void clickonElement(AndroidDriver driver, WebElement element)
 	{
 

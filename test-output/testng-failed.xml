@@ -3,12 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="driverAction.DriverActions">
+      <class name="server.StartServerCMD">
         <methods>
-          <include name="launchApp"/>
-          <include name="actions"/>
+          <include name="stopServer"/>
+          <include name="click"/>
+          <include name="startserver"/>
         </methods>
-      </class> <!-- driverAction.DriverActions -->
+      </class> <!-- server.StartServerCMD -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

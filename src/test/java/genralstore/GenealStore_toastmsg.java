@@ -17,6 +17,7 @@ public class GenealStore_toastmsg {
 		DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 		// Common DC (Android or IOS)
 		desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "uiautomator2");
+		//desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME,"" );
 		desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "android");
 		desiredCapabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "12");
 		desiredCapabilities.setCapability(MobileCapabilityType.UDID, "RZ8N91KGFEH");

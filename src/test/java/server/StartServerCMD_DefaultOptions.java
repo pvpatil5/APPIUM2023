@@ -1,43 +1,37 @@
-package androidGestures;
+package server;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.InteractsWithApps;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 
-public class BaseClass 
-{
-	public AppiumDriver driver;
-	private AppiumDriverLocalService server;
+public class StartServerCMD_DefaultOptions {
 
-	@BeforeSuite
-	public void launchserver() throws MalformedURLException 
+
+	AppiumDriverLocalService server;
+	
+	
+	public AppiumDriverLocalService getAppiumServerDefault() {
+		return AppiumDriverLocalService.buildDefaultService();
+	}
+	
+	
+	@BeforeMethod
+	public void startserver() 
 	{
-		server=DriverMethods.getAppiumServer();
+		server=getAppiumServerDefault();
 		server.start();
-	}
 
-	@AfterSuite
-	public void stopserver() {
-		server.stop();
 	}
-
-	//@Parameters({"deviname","udid"})
-	@BeforeClass
-	public void launchApp() throws MalformedURLException {
+	@Test
+	public void click() throws MalformedURLException, InterruptedException {
 		DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
 
 		desiredCapabilities.setCapability("automationName", "uiautomator2");
@@ -49,28 +43,17 @@ public class BaseClass
 		desiredCapabilities.setCapability("appActivity", ".ApiDemos");
 		//desiredCapabilities.setCapability(MobileCapabilityType.APP, "D:\\APPIUM_Stuff\\Appium_Docs\\ApiDemos-debug.apk");
 
+		URL url = new URL("http://localhost:4723");
 
-		URL url = new URL("http://localhost:4723/wd/hub");
+		AndroidDriver driver = new AndroidDriver(url, desiredCapabilities);
 
-		driver = new AndroidDriver(url, desiredCapabilities);
-
-	}
-	@BeforeMethod
-	public void logintoApp() 
-	{
 
 	}
-
+	
 	@AfterMethod
-	public void logout() 
+	public void stopServer()
 	{
-
-	}
-
-	@AfterClass
-	public void terminateApp1()
-	{
-		((InteractsWithApps) driver).terminateApp("io.appium.android.apis");
+		server.stop();
 	}
 
 }
