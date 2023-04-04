@@ -16,13 +16,13 @@ public class StartServerCMD_DefaultOptions {
 
 
 	AppiumDriverLocalService server;
-	
-	
+
+
 	public AppiumDriverLocalService getAppiumServerDefault() {
 		return AppiumDriverLocalService.buildDefaultService();
 	}
-	
-	
+
+
 	@BeforeMethod
 	public void startserver() 
 	{
@@ -43,13 +43,13 @@ public class StartServerCMD_DefaultOptions {
 		desiredCapabilities.setCapability("appActivity", ".ApiDemos");
 		//desiredCapabilities.setCapability(MobileCapabilityType.APP, "D:\\APPIUM_Stuff\\Appium_Docs\\ApiDemos-debug.apk");
 
-		URL url = new URL("http://localhost:4723");
+		URL url = new URL("http://localhost:4723/wd/hub");
 
 		AndroidDriver driver = new AndroidDriver(url, desiredCapabilities);
 
 
 	}
-	
+
 	@AfterMethod
 	public void stopServer()
 	{

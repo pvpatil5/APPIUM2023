@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="server.StartServerCMD">
+      <class name="server.StartServerCMD_custom">
         <methods>
-          <include name="stopServer"/>
-          <include name="click"/>
           <include name="startserver"/>
+          <include name="click"/>
+          <include name="stopServer"/>
         </methods>
-      </class> <!-- server.StartServerCMD -->
+      </class> <!-- server.StartServerCMD_custom -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -32,11 +32,11 @@ public class StartServerCMD_custom {
 
 
 
-	@Parameters("port")
+	//@Parameters("port")
 	@BeforeMethod
-	public void startserver(int port) 
+	public void startserver() 
 	{
-		server=getAppiumServer(port);
+		server=getAppiumServer(4723);
 		server.start();
 		server.clearOutPutStreams(); // it will not show server logs in the console
 

@@ -19,15 +19,15 @@ public class ServerStart_1
 
 	@BeforeMethod
 	public void startServer() {
-		server = AppiumDriverLocalService.buildDefaultService();
-		server.start();
-		server.clearOutPutStreams();
+		 AppiumDriverLocalService.buildDefaultService().start();
+//		server.start();
+//		server.clearOutPutStreams();
 	}
 
 
 	@AfterMethod
 	public void stopserver() {
-		server.stop();
+		//server.stop();
 	}
 
 
